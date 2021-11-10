@@ -1,6 +1,10 @@
 /************************************************
 Treehouse Techdegree:
 Project 4 - Random Quote Generator
+
+v1 - 11-5-21
+
+v2 - 11-9-21
 *************************************************/
 
 // For assistance: 
@@ -46,10 +50,26 @@ const quotes = [
 ];
 
 
+let checkRepeat = []; //declared empty array
+
+/**
+ * `refillArray` arrow function
+ * takes the empty array checkRepeat[] and stores the value of quotes[] inside it
+ * @returns {array} - returns the value of array quotes[] stored in array checkRepeat[]
+ */
+const refillArray = () => checkRepeat = [...quotes];
+
+refillArray(); //calling this sets the value for array checkRepeat[] for the first time so it's not an empty array and can be passed into functions as an arguements
+
+
 /***
  * `getRandomQuote` function
  * takes an array as a arguement and uses the random number formula to get a random number from 0-4 and
- * uses that number to get the object with that index value in the quotes array whihc then gets stored in variable qt and returned
+ * uses that number to get the object with that index value in the quotes array which then gets stored in variable qt and returned
+ * 
+ * v2 - this now takes the the returned value and takes it out of the array that is passed through so no one quote can come up again
+ *      then it calls a function refillArray(); once the orginal array is empty and  calls a function that declared the array full of 
+ *      the quotes again
  * 
  * @param {array} arr - the array quotes[]
  * @returns {number} qt - a random object for the array passed into the function
@@ -57,8 +77,13 @@ const quotes = [
 function getRandomQuote(arr){
   const randomNumber = Math.floor(Math.random() * arr.length);
   let qt = arr[randomNumber];
+  arr.splice(randomNumber,1);
+  if(arr.length <= 0){
+     refillArray();
+  }
   return qt;
 }
+
 
 /***
  *  `rgb` function
@@ -115,7 +140,7 @@ const backColor = () => document.body.style.backgroundColor = randomRGB(rgb);
  * @returns {template literal} - value of print
 ***/
 function printQuote(){
-  let rando = getRandomQuote(quotes);
+  let rando = getRandomQuote(checkRepeat);
   let print = `
     <p class="quote">${rando.quote}</p>
     <p class="source">${rando.source}
@@ -139,19 +164,21 @@ function printQuote(){
  *  `setInterval`
  * takes in a function (in this case printQuote();) as a reference(whatever the heck that means) and then 
  * takes in a value for time in milliseconds and runs the specified function in intervals of the milliseconds added
+ * 
+ * `clearInterval`
+ * takes the id of the setInterval inside case timerID and clears it when this function is called
+ * @returns - stops the setInterval
 ***/
-setInterval(printQuote,10000);
+const timerID = setInterval(printQuote,10000); //adding extra time to this so it won't refresh all the timne and i can work on the code orginal time: 10000
+const stopLoop = () => clearInterval(timerID); //stops the auto refreshing once function is called
 /**
  * Platform: Youtube
  * URL: https://www.youtube.com/watch?v=GhePFBkdNYk
  * Title: The javaScript method setInterval EXPLAINED in 5 minutes!
  * Channel: Code with Ania Kubow
  * Code: "setInterval(function,time)"
- * Usage: Needed to figure out how to make a function run in intervals of a specified amount of time
+ * Usage: Needed to figure out how to make a function run in intervals of a specified amount of time and stop the loop when needed
 ***/
-
-
-// 
 
 /***
  * click event listener for the print quote button
@@ -162,3 +189,5 @@ setInterval(printQuote,10000);
  * it waits for a "click" and runs the function printQuote(); not sure what the false is for  
 ***/
 document.getElementById('load-quote').addEventListener("click", printQuote, false);
+
+document.getElementById('stop-loop').addEventListener("click",stopLoop, false); //clears the auto refresh once "Stop Auto-Refresh" button is clicked
