@@ -11,9 +11,23 @@ There is no programing errors with the code but there are currently only 5 quote
 the same quote a few times in a row.
 
 
+v2  - this has now been fixed and now no quote is shown again until the other ones have been shown
+
 FUTURE PLANS:
 The hope is that version 2 will include:
 
-1) a button to stop the interval of the quotes changing
+1) a button to stop the interval of the quotes changing (v2 - this button has been added)
 
 2) a button that brings back the last quote that was displayed 
+
+
+v3 FUTURE PLANS:
+The hope is that version 3 will include:
+
+
+1) ask the user how often they would like a new quote to be displayed
+
+2) a button that restarts a loop once it's been stopped
+
+3) addition to v2 plans of adding button that brings back last quote displayed. making it so the same color is also redisplayed
+
