@@ -1,4 +1,4 @@
-# TechDegree-Project-4
+# Random Quote Generator
 
 This prgram takes an array of object filled with quotes with various information about the quotes 
 such as source, citation, year, and tags that apply to the quote.
